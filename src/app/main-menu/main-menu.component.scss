@@ -33,3 +33,94 @@
 .menu svg{
     width: 40px;
 }
+
+.menu img{
+    width: 300px;
+}
+
+.menu h1{
+    font-size: 70px;
+}
+
+.absolute{
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    width: 100px;
+    rotate: -30deg;
+    transition: 0.1s ease-in-out;
+}
+
+.absolute:hover{
+    transition: 0.1s ease-in-out;
+    scale: 1.08;
+}
+
+.absolute1{
+    position: absolute;
+    top: 45%;
+    right: 15%;
+    width: 100px;
+    rotate: 36deg;
+    transition: 0.1s ease-in-out;
+}
+
+.absolute1:hover{
+    transition: 0.1s ease-in-out;
+    scale: 1.08;
+}
+
+.absolute2{
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    width: 100px;
+    rotate: 20deg;
+    transition: 0.1s ease-in-out;
+}
+
+.absolute2:hover{
+    transition: 0.1s ease-in-out;
+    scale: 1.08;
+}
+
+.absolute3{
+    position: absolute;
+    top: 65%;
+    left: 20%;
+    width: 100px;
+    rotate: 145deg;
+    transition: 0.1s ease-in-out;
+}
+
+.absolute3:hover{
+    transition: 0.1s ease-in-out;
+    scale: 1.08;
+}
+
+.absolute4{
+    position: absolute;
+    top: 15%;
+    right: 20%;
+    width: 100px;
+    transition: 0.1s ease-in-out;
+}
+
+.absolute4:hover{
+    transition: 0.1s ease-in-out;
+    scale: 1.08;
+}
+
+.absolute5{
+    position: absolute;
+    top: 70%;
+    right: 20%;
+    width: 100px;
+    rotate: -15deg;
+    transition: 0.1s ease-in-out;
+}
+
+.absolute5:hover{
+    transition: 0.1s ease-in-out;
+    scale: 1.08;
+}

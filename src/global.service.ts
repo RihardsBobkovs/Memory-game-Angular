@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 
+
+
 interface Card {
   value: string;
   suit: number;
@@ -12,6 +14,11 @@ interface Card {
   })
 export class GlobalService{
 
+  
+
+  public isInputAllowed: boolean = true;
+  public init: boolean = true
+  public init2: boolean = false
   public winner: string = ''
 
   public allPairsChosen: boolean = false
@@ -19,46 +26,53 @@ export class GlobalService{
   public player1 = {
     id: 1,
     points: 0,
-    name: 'Adams',
+    name: 'Player 1',
     isMove: true,
-
+    icon: 0,
   }
 
   public player2 = {
     id: 2,
     points: 0,
-    name: 'Ieva',
+    name: 'Player 2',
     isMove: false,
+    icon: 0,
   }
 
   public cards: Card[] = [
-    { value: 'A', suit: 1, isChosen: false, isPairChosen: false },
-    { value: 'A', suit: 2, isChosen: false, isPairChosen: false },
-    { value: 'B', suit: 3, isChosen: false, isPairChosen: false },
-    { value: 'B', suit: 4, isChosen: false, isPairChosen: false },
-    { value: 'C', suit: 5, isChosen: false, isPairChosen: false },
-    { value: 'C', suit: 6, isChosen: false, isPairChosen: false },
-    { value: 'D', suit: 7, isChosen: false, isPairChosen: false },
-    { value: 'D', suit: 8, isChosen: false, isPairChosen: false },
-    { value: 'E', suit: 9, isChosen: false, isPairChosen: false },
-    { value: 'E', suit: 10, isChosen: false, isPairChosen: false },
-    { value: 'F', suit: 11, isChosen: false, isPairChosen: false },
-    { value: 'F', suit: 12, isChosen: false, isPairChosen: false },
-    { value: 'G', suit: 13, isChosen: false, isPairChosen: false },
-    { value: 'G', suit: 14, isChosen: false, isPairChosen: false },
-    { value: 'H', suit: 15, isChosen: false, isPairChosen: false },
-    { value: 'H', suit: 16, isChosen: false, isPairChosen: false },
-    { value: 'I', suit: 17, isChosen: false, isPairChosen: false },
-    { value: 'I', suit: 18, isChosen: false, isPairChosen: false },
-    { value: 'J', suit: 19, isChosen: false, isPairChosen: false },
-    { value: 'J', suit: 20, isChosen: false, isPairChosen: false },
+    { value: '🍇', suit: 1, isChosen: false, isPairChosen: false },
+    { value: '🍇', suit: 2, isChosen: false, isPairChosen: false },
+    { value: '🍉', suit: 3, isChosen: false, isPairChosen: false },
+    { value: '🍉', suit: 4, isChosen: false, isPairChosen: false },
+    { value: '🍊', suit: 5, isChosen: false, isPairChosen: false },
+    { value: '🍊', suit: 6, isChosen: false, isPairChosen: false },
+    { value: '🍅', suit: 7, isChosen: false, isPairChosen: false },
+    { value: '🍅', suit: 8, isChosen: false, isPairChosen: false },
+    { value: '🍓', suit: 9, isChosen: false, isPairChosen: false },
+    { value: '🍓', suit: 10, isChosen: false, isPairChosen: false },
+    { value: '🥥', suit: 11, isChosen: false, isPairChosen: false },
+    { value: '🥥', suit: 12, isChosen: false, isPairChosen: false },
+    { value: '🍑', suit: 13, isChosen: false, isPairChosen: false },
+    { value: '🍑', suit: 14, isChosen: false, isPairChosen: false },
+    { value: '🥝', suit: 15, isChosen: false, isPairChosen: false },
+    { value: '🥝', suit: 16, isChosen: false, isPairChosen: false },
+    { value: '🍒', suit: 17, isChosen: false, isPairChosen: false },
+    { value: '🍒', suit: 18, isChosen: false, isPairChosen: false },
+    { value: '🍌', suit: 19, isChosen: false, isPairChosen: false },
+    { value: '🍌', suit: 20, isChosen: false, isPairChosen: false },
   ];
 
-  public keyedCards: { [key: number]: Card } = this.cards.reduce((acc, card) => {
-    //@ts-ignore
-    acc[card.suit] = { ...card };
-    return acc;
-  }, {});
+  
+
+  public suits: number[] = this.cards.map(card => card.suit);
+  public shuffledSuits = [...this.suits].sort(() => Math.random() - 0.5);
+
+public keyedCards: { [key: number]: Card } = this.suits.reduce((acc, suit, index) => {
+  let shuffledSuit = this.shuffledSuits[index];
+  //@ts-ignore
+  acc[shuffledSuit] = { ...this.cards.find(card => card.suit === suit) };
+  return acc;
+}, {});
   
 
   public chosenCards: any[] = [
@@ -66,31 +80,35 @@ export class GlobalService{
 
   ]
 
+ 
   async cardChosen(value: string, suit: any) {
-    console.log('keyedCards:', this.keyedCards);
+
+    if (!this.isInputAllowed) {
+      console.log('input not allowed!')
+      return; 
+    }
     
+ 
     this.chosenCards.push({ value: value, suit: suit });
-  
-    console.log('chosenCards:', this.chosenCards);
-  
-    console.log('suit:', suit);
-  
+
+    
+
     this.keyedCards[suit].isChosen = true;
   
-    console.log('AFTER TRUE:', this.keyedCards);
-  
     if (this.chosenCards.length === 2) {
+      if(this.chosenCards[0].suit === this.chosenCards[1].suit){
+        console.log('Cant choose matching suits!')
+      
+        this.chosenCards.splice(1)
+        return
+      }
       if (this.chosenCards[0].value === this.chosenCards[1].value) {
+        this.isInputAllowed = false;
         console.log('Match!');
-        setTimeout(() => {
+        setTimeout(async () => {
         this.keyedCards[this.chosenCards[0].suit].isPairChosen = true;
         this.keyedCards[this.chosenCards[1].suit].isPairChosen = true;
 
-        console.log('AFTER setting Pairs:', this.keyedCards);
-        
-        this.allPairsChosen = this.cards.every(card => card.isPairChosen);
-
-        console.log("VISI IZVEELEETI?: ", this.allPairsChosen)
 
         this.chosenCards = [];
 
@@ -99,19 +117,28 @@ export class GlobalService{
           this.player1.isMove = false
           this.player2.isMove = true
 
-          if(this.allPairsChosen){
-            if(this.player1.points > this.player2.points){
-              this.winner = this.player1.name
-              return
-            }
-            if(this.player2.points > this.player1.points){
-              this.winner = this.player2.name
-            }
-            else{
-              this.winner = 'Tie'
-            }
-          }
+          
 
+          await this.checkwin().then(() => {
+
+            console.log(this.allPairsChosen)
+            if (this.allPairsChosen) {
+              if(this.player1.points > this.player2.points){
+                this.winner = this.player1.name
+                return
+              }
+              if(this.player2.points > this.player1.points){
+                this.winner = this.player2.name
+                return
+              }
+              else{
+                this.winner = 'Tie'
+              }
+            }
+        });
+
+          
+        this.isInputAllowed = true;
 
           return
         }
@@ -121,24 +148,30 @@ export class GlobalService{
           this.player2.isMove = false
           this.player1.isMove = true
 
+         
 
-          if(this.allPairsChosen){
-            if(this.player1.points > this.player2.points){
-              this.winner = this.player1.name
-              return
-            }
-            if(this.player2.points > this.player1.points){
-              this.winner = this.player2.name
-            }
-            else{
-              this.winner = 'Tie'
-            }
-          }
+          await this.checkwin().then(() => {
 
+            console.log(this.allPairsChosen)
+            if (this.allPairsChosen) {
+              if(this.player1.points > this.player2.points){
+                this.winner = this.player1.name
+                return
+              }
+              if(this.player2.points > this.player1.points){
+                this.winner = this.player2.name
+                return
+              }
+              else{
+                this.winner = 'Tie'
+              }
+            }
+        });
+        this.isInputAllowed = true;
           return
         }
 
-
+        this.isInputAllowed = true;
       }, 1000);
       } else {
         console.log('Not a match!');
@@ -147,8 +180,8 @@ export class GlobalService{
 
         
         
-
-        setTimeout(() => {
+        this.isInputAllowed = false;
+        setTimeout(async () => {
            this.keyedCards[this.chosenCards[0].suit].isChosen = false;
           this.keyedCards[this.chosenCards[1].suit].isChosen = false;
 
@@ -158,7 +191,7 @@ export class GlobalService{
             this.player2.isMove = true
 
             this.chosenCards = [];
-
+            this.isInputAllowed = true;
             return
           }
   
@@ -168,19 +201,49 @@ export class GlobalService{
             this.player1.isMove = true
 
             this.chosenCards = [];
-
+            this.isInputAllowed = true;
             return
           }
 
-          
+          this.isInputAllowed = true;
         }, 1000);
       }
       
     }
   }
 
+  async checkwin() {
+    return new Promise<void>((resolve) => {
+      this.allPairsChosen = Object.values(this.keyedCards).every(card => card.isPairChosen);
+      resolve();
+    });
+  }
+
+  async retry(){
+    
+    this.chosenCards = []
+    this.player1.points = 0
+    this.player2.points = 0
+    this.player1.isMove = true
+    this.player2.isMove = false
+    this.winner = ''
+
+    this.shuffledSuits = [...this.suits].sort(() => Math.random() - 0.5);
+
+  // Recreate the keyedCards array
+  this.keyedCards = this.suits.reduce((acc, suit, index) => {
+    let shuffledSuit = this.shuffledSuits[index];
+    //@ts-ignore
+    acc[shuffledSuit] = { ...this.cards.find(card => card.suit === suit) };
+    return acc;
+  }, {});
+
+  }
+
   async doNothing(){
     console.log('Already matched element!')
   }
+
+  
 
 }

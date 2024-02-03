@@ -12,4 +12,8 @@ export class GameScreenComponent {
 
   }
 
+  async ngOnInit(){
+    
+  }
+
 }

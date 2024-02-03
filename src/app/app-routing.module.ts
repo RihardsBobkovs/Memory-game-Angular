@@ -4,10 +4,14 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { GameScreenComponent } from './game-screen/game-screen.component';
 
 const routes: Routes = [
-  { path: '*', component: MainMenuComponent },
-  { path: '', component: MainMenuComponent },
+  
+  {
+    path: '',
+    redirectTo: 'main',
+    pathMatch: 'full'
+  },
   { path: 'main', component: MainMenuComponent },
-  { path: 'game', component: GameScreenComponent }
+  { path: 'main/game', component: GameScreenComponent }
 ];
 
 @NgModule({

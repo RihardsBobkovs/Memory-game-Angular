@@ -55,6 +55,9 @@
     gap: 20px;
     transition: 0.1s ease;
     cursor: pointer;
+    height: 80px;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .player1:hover{
@@ -76,6 +79,9 @@
     gap: 20px;
     transition: 0.1s ease;
     cursor: pointer;
+    height: 80px;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .player2:hover{
@@ -91,3 +97,115 @@
     width: 80px;
 }
 
+
+.playerMove{
+    width: 300px;
+    text-align: center;
+}
+
+
+.isMoved{
+    background-color: rgb(96, 191, 255);;
+  }
+
+.custom-popup-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    gap: 20px;
+  }
+
+  
+
+  .custom-popup-content {
+    width: 800px;
+    background-color: #FDF5F6;
+    color: black;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+
+
+  .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .content input{
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+  }
+
+
+  .content button{
+    width: 250px;
+    height: 80px;
+    font-size: 36px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #E0EA91;
+}
+
+.content button:hover{
+    scale: 1.1;
+    transition: 0.1s ease;
+}
+
+.isPaired{
+    background-color: orange;
+}
+
+.isChosen{
+    background-color: rgb(96, 191, 255);
+}
+
+.characters{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex-wrap: wrap;
+    grid-column-gap: 0px;
+    grid-row-gap: 40px;
+    width: 400px;
+    justify-items: center
+}
+
+
+.characters svg{
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    transition: 0.1s ease;
+    padding: 10px;
+}
+
+.characters svg:hover{
+    transition: 0.1s ease;
+    scale: 1.05;
+}
+
+.activeIcon{
+    background-color: rgb(96, 191, 255);
+    border-radius: 10px;
+    
+}
