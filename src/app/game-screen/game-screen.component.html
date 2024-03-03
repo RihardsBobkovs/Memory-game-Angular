@@ -42,7 +42,7 @@
 
     <div class="cards">
 
-    <div [ngClass]="{'isPaired' : card.value.isPairChosen}" [ngClass]="{'isChosen' : card.value.isChosen}" class="card" (click)="!card.value.isPairChosen? this.global.cardChosen(card.value.value, card.key) : this.global.doNothing(); card.value.isChosen = true" *ngFor="let card of global.keyedCards | keyvalue">
+    <div [ngClass]="{'isPaired' : card.value.isPairChosen}" [ngClass]="{'isChosen' : card.value.isChosen}" class="card" (click)="global.choseCard(card.value,card.key)" *ngFor="let card of global.keyedCards | keyvalue">
         <p *ngIf="card.value.isChosen">{{card.value.value}}</p>
         
     </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GlobalService } from 'src/global.service';
+import { Card, GlobalService } from 'src/global.service';
 
 @Component({
   selector: 'app-game-screen',
@@ -15,5 +15,6 @@ export class GameScreenComponent {
   async ngOnInit(){
     
   }
+  
 
 }
