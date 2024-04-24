@@ -2,13 +2,28 @@ import { Injectable } from "@angular/core";
 
 
 
-export interface Card {
-  value: string;
-  suit: number;
-  isChosen: boolean;
-  isPairChosen: boolean;
+export class Card {
+  value!: string;
+  suit!: number;
+  isChosen!: boolean;
+  isPairChosen!: boolean;
 }
 
+export class Player {
+  id!: number;
+  points!: number;
+  name!: string;
+  isMove!: boolean;
+  icon!: number;
+
+  constructor(id: number, name: string, isMove: boolean, icon: number) {
+    this.id = id;
+    this.points = 0;
+    this.name = name;
+    this.isMove = isMove;
+    this.icon = icon;
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,30 +32,17 @@ export class GlobalService {
 
 
 
-  public isInputAllowed: boolean = true;
+  private isInputAllowed: boolean = true;
   public init: boolean = true
   public init2: boolean = false
   public winner: string = ''
 
-  public allPairsChosen: boolean = false
+  private allPairsChosen: boolean = false
 
-  public player1 = {
-    id: 1,
-    points: 0,
-    name: 'Player 1',
-    isMove: true,
-    icon: 0,
-  }
+  public player1: Player = new Player(1, 'Player 1', true, 0);
+  public player2: Player = new Player(2, 'Player 2', false, 0);
 
-  public player2 = {
-    id: 2,
-    points: 0,
-    name: 'Player 2',
-    isMove: false,
-    icon: 0,
-  }
-
-  public cards: Card[] = [
+  private cards: Card[] = [
     { value: '🍇', suit: 1, isChosen: false, isPairChosen: false },
     { value: '🍇', suit: 2, isChosen: false, isPairChosen: false },
     { value: '🍉', suit: 3, isChosen: false, isPairChosen: false },
@@ -65,8 +67,8 @@ export class GlobalService {
 
 
 
-  public suits: number[] = this.cards.map(card => card.suit);
-  public shuffledSuits = [...this.suits].sort(() => Math.random() - 0.5);
+  private suits: number[] = this.cards.map(card => card.suit);
+  private shuffledSuits = [...this.suits].sort(() => Math.random() - 0.5);
 
   public keyedCards: { [key: number]: Card } = this.suits.reduce((acc, suit, index) => {
     let shuffledSuit = this.shuffledSuits[index];
